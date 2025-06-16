@@ -1,30 +1,66 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.0.4",
   "info": {
     "title": "curstomersApi",
     "version": "1.0"
   },
   "paths": {
-    "/api/Customer": {
+    "/api/Person": {
+      "get": {
+        "tags": [
+          "Person"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Person"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Person"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Person"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "post": {
         "tags": [
-          "Customer"
+          "Person"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerDto"
+                "$ref": "#/components/schemas/Person"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerDto"
+                "$ref": "#/components/schemas/Person"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerDto"
+                "$ref": "#/components/schemas/Person"
               }
             }
           }
@@ -35,53 +71,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/CustomerDto"
+                  "$ref": "#/components/schemas/Person"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CustomerDto"
+                  "$ref": "#/components/schemas/Person"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CustomerDto"
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Customer"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CustomerDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CustomerDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CustomerDto"
-                  }
+                  "$ref": "#/components/schemas/Person"
                 }
               }
             }
@@ -89,10 +89,10 @@
         }
       }
     },
-    "/api/Customer/{id}": {
+    "/api/Person/{id}": {
       "get": {
         "tags": [
-          "Customer"
+          "Person"
         ],
         "parameters": [
           {
@@ -111,17 +111,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/CustomerDto"
+                  "$ref": "#/components/schemas/Person"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CustomerDto"
+                  "$ref": "#/components/schemas/Person"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CustomerDto"
+                  "$ref": "#/components/schemas/Person"
                 }
               }
             }
@@ -130,7 +130,7 @@
       },
       "put": {
         "tags": [
-          "Customer"
+          "Person"
         ],
         "parameters": [
           {
@@ -147,47 +147,30 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerDto"
+                "$ref": "#/components/schemas/Person"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerDto"
+                "$ref": "#/components/schemas/Person"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerDto"
+                "$ref": "#/components/schemas/Person"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/CustomerDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CustomerDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CustomerDto"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       },
       "delete": {
         "tags": [
-          "Customer"
+          "Person"
         ],
         "parameters": [
           {
@@ -202,24 +185,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
@@ -266,34 +232,24 @@
   },
   "components": {
     "schemas": {
-      "CustomerDto": {
+      "Person": {
+        "required": [
+          "age",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "format": "uuid"
           },
-          "firstName": {
+          "name": {
             "type": "string",
             "nullable": true
           },
-          "lastName": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "nullable": true
-          },
-          "phone": {
-            "pattern": "^\\+?\\d{10,15}$",
-            "type": "string",
-            "nullable": true
-          },
-          "address": {
-            "type": "string",
-            "nullable": true
+          "age": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
