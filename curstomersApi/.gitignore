@@ -1,1 +1,24 @@
+# Archivos de Visual Studio
 .vs/
+*.user
+*.suo
+
+# Build outputs
+bin/
+obj/
+
+# Carpetas temporales y resultados de pruebas
+TestResults/
+*.log
+
+# Configuración local
+*.vscode/
+*.code-workspace
+.idea/
+
+# Archivos generados por EF Core
+Migrations/
+
+# Archivos del sistema
+Thumbs.db
+.DS_Store
