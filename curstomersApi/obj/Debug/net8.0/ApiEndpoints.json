@@ -1,27 +1,7 @@
 [
   {
     "ContainingType": "curstomersApi.Controller.PersonController",
-    "Method": "GetPersons",
-    "RelativePath": "api/Person",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[curstomersApi.Persistence.Entitiy.Person, curstomersApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "curstomersApi.Controller.PersonController",
-    "Method": "PostPerson",
+    "Method": "SavePerson",
     "RelativePath": "api/Person",
     "HttpMethod": "POST",
     "IsController": true,
@@ -33,21 +13,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "curstomersApi.Persistence.Entitiy.Person",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "curstomersApi.Controller.PersonController",
-    "Method": "GetPerson",
+    "Method": "GetPersons",
+    "RelativePath": "api/Person",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "curstomersApi.Controller.PersonController",
+    "Method": "GetPersonById",
     "RelativePath": "api/Person/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -59,21 +39,11 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "curstomersApi.Persistence.Entitiy.Person",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "curstomersApi.Controller.PersonController",
-    "Method": "PutPerson",
+    "Method": "UpdatePerson",
     "RelativePath": "api/Person/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -85,7 +55,7 @@
         "IsRequired": true
       },
       {
-        "Name": "person",
+        "Name": "updatedPerson",
         "Type": "curstomersApi.Persistence.Entitiy.Person",
         "IsRequired": true
       }

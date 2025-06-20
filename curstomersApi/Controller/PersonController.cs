@@ -1,108 +1,74 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using curstomersApi.Context;
+﻿using Microsoft.AspNetCore.Mvc;
 using curstomersApi.Persistence.Entitiy;
+using curstomersApi.Service;
 
 namespace curstomersApi.Controller
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class PersonController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IPersonService _personService;
 
-        public PersonController(AppDbContext context)
+        public PersonController(IPersonService personService)
         {
-            _context = context;
+            _personService = personService;
+        }
+
+        // POST: api/Person
+        [HttpPost]
+        public IActionResult SavePerson([FromBody] Person person)
+        {
+            _personService.CreatePerson(person);
+
+            return CreatedAtAction(nameof(GetPersonById), new { id = person.Id }, person);
         }
 
         // GET: api/Person
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Person>>> GetPersons()
+        public IActionResult GetPersons()
         {
-            return await _context.Persons.ToListAsync();
+            var persons = _personService.GetPersons();
+            return Ok(persons);
         }
 
         // GET: api/Person/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> GetPerson(Guid id)
+        public IActionResult GetPersonById(Guid id)
         {
-            var person = await _context.Persons.FindAsync(id);
+            var person = _personService.GetPersonById(id);
 
             if (person == null)
             {
                 return NotFound();
             }
 
-            return person;
+            return Ok(person);
         }
 
         // PUT: api/Person/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPerson(Guid id, Person person)
+        public IActionResult UpdatePerson(Guid id, [FromBody] Person updatedPerson)
         {
-            if (id != person.Id)
-            {
-                return BadRequest();
-            }
+            var existingPerson = _personService.GetPersonById(id);
 
-            _context.Entry(person).State = EntityState.Modified;
+            if (existingPerson == null) return NotFound();
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PersonExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _personService.UpdatePerson(id, updatedPerson);
 
             return NoContent();
-        }
-
-        // POST: api/Person
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Person>> PostPerson(Person person)
-        {
-            _context.Persons.Add(person);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPerson", new { id = person.Id }, person);
         }
 
         // DELETE: api/Person/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePerson(Guid id)
+        public ActionResult DeletePerson(Guid id)
         {
-            var person = await _context.Persons.FindAsync(id);
-            if (person == null)
-            {
-                return NotFound();
-            }
+            var existingPerson = _personService.GetPersonById(id);
 
-            _context.Persons.Remove(person);
-            await _context.SaveChangesAsync();
+            if (existingPerson == null) return NotFound();
 
+            _personService.DeletePerson(id);
             return NoContent();
-        }
-
-        private bool PersonExists(Guid id)
-        {
-            return _context.Persons.Any(e => e.Id == id);
         }
     }
 }
